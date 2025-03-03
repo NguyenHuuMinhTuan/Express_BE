@@ -63,7 +63,7 @@ class cartController {
                 if (!cart) {
                     return res.status(404).send("Cart not found");
                 }
-                res.status(200).send(cart);
+                res.status(200).send({message:"Updated Cart Completed" +cart});
             })
             .catch(error => {
                 console.error(error);

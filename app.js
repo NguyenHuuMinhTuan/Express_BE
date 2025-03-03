@@ -40,6 +40,7 @@ app.use('/product',require('./src/routes/productRoute.js'))
 app.use('/revenue',require('./src/routes/revenueRoute.js'))
 app.use('/cart',require('./src/routes/cartRoute.js'))
 app.use('/auth',require('./src/routes/authRoute.js'))
+app.use('/voucher',require('./src/routes/voucherRoute.js'))
 
 
 app.get('/', (req, res) => {

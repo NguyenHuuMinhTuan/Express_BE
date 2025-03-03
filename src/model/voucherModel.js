@@ -6,34 +6,46 @@ const getAll = async () => {
 };
 
 const create = async (newVoucher) => {
-    const { date_sale, id_account } = newVoucher;
+    const { Date_sale, Date_end, discount, title, code} = newVoucher;
 
-    if (!id_product || !id_product) {
-        throw new Error("All fields (id_product, id_account) are required");
+    if (!Date_sale || !Date_end ||! discount ||! title ||! code) {
+        throw new Error("All fields (Date_sale, Date_end, discount, title, code) are required");
     }
 
-    const query = 'INSERT INTO bill (id_product, id_account) VALUES (?, ?)';
-    const [rows] = await pool.execute(query, [id_product, id_account]);
+    const query = 'INSERT INTO voucher ( Date_sale, Date_end, discount, title, code) VALUES (?, ?,?,?,?)';
+    const [rows] = await pool.execute(query, [ Date_sale, Date_end, discount, title, code]);
 
     return rows;
 };
 
-const update = async (id, updatedBill) => {
-    const { id_product, id_account } = updatedBill;
+const update = async (id, updateVoucher) => {
+    const {  Date_sale, Date_end, discount, title, code } = updateVoucher;
     
-    let query = 'UPDATE bill SET ';
+    let query = 'UPDATE voucher SET ';
     const values = [];
 
-    if (id_product) {
-        query += 'id_product = ?, ';
-        values.push(id_product);
+    if (Date_sale) {
+        query += 'Date_sale = ?, ';
+        values.push(Date_sale);
     }
-    if (id_account) {
-        query += 'id_account = ?, ';
-        values.push(id_account);
+    if (Date_end) {
+        query += 'Date_end = ?, ';
+        values.push(Date_end);
+    }
+    if (discount) {
+        query += 'discount = ?, ';
+        values.push(discount);
+    }
+    if (title) {
+        query += 'title = ?, ';
+        values.push(title);
+    }
+    if (code) {
+        query += 'code = ?, ';
+        values.push(code);
     }
 
-    query = query.slice(0, -2); // Xóa dấu "," cuối cùng
+    query = query.slice(0, -2); 
     query += ' WHERE id = ?';
     values.push(id);
 
@@ -42,7 +54,7 @@ const update = async (id, updatedBill) => {
 };
 
 const remove = async (id) => {
-    const query = 'DELETE FROM bill WHERE id = ?';
+    const query = 'DELETE FROM voucher WHERE id = ?';
     const [rows] = await pool.execute(query, [id]);
     return rows;
 };

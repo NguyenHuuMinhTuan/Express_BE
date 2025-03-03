@@ -43,7 +43,7 @@ class InfoController {
             }
 
             const updatedInfo = { address, tel, account_id };
-            const result = await Feedback.update(id, updatedInfo);
+            const result = await Info.update(id, updatedInfo);
 
             if (result?.affectedRows > 0) {
                 res.status(200).json({ message: 'Infomation updated successfully' });
@@ -58,7 +58,7 @@ class InfoController {
     async deleteInfo(req, res) {
         try {
             const { id } = req.params;
-            const result = await Feedback.remove(id);
+            const result = await Info.remove(id);
 
             if (result?.affectedRows > 0) {
                 res.status(200).json({ message: 'Infomation deleted successfully' });
